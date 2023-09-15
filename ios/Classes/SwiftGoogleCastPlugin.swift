@@ -7,12 +7,12 @@ public class SwiftGoogleCastPlugin:GCKCastContext, GCKLoggerDelegate, FlutterPlu
     private var channel : FlutterMethodChannel?
    
     
-    public override var sessionManager: GCKSessionManager {
-        GCKCastContext.sharedInstance().sessionManager
-    }
-    public override var discoveryManager: GCKDiscoveryManager {
-        GCKCastContext.sharedInstance().discoveryManager
-    }
+    // public override var sessionManager: GCKSessionManager {
+    //     GCKCastContext.sharedInstance().sessionManager
+    // }
+    // public override var discoveryManager: GCKDiscoveryManager {
+    //     GCKCastContext.sharedInstance().discoveryManager
+    // }
 
     //MARK: - RegisterMethodChannel
   public static func register(with registrar: FlutterPluginRegistrar) {
@@ -55,6 +55,8 @@ public class SwiftGoogleCastPlugin:GCKCastContext, GCKLoggerDelegate, FlutterPlu
         GCKCastContext.setSharedInstanceWith(option)
         GCKLogger.sharedInstance().consoleLoggingEnabled = true
         GCKLogger.sharedInstance().delegate = self
+        let discoveryManager = GCKCastContext.sharedInstance().discoveryManager
+        let sessionManager = GCKCastContext.sharedInstance().sessionManager
         discoveryManager.add(FGCDiscoveryManagerMethodChannel.instance)
         sessionManager.add(FGCSessionManagerMethodChannel.instance )
         discoveryManager.startDiscovery()
