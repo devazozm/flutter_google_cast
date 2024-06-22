@@ -36,6 +36,7 @@ class _MyAppState extends State<MyApp> {
       );
     }
     GoogleCastContext.instance.setSharedInstanceWithOptions(options!);
+    GoogleCastDiscoveryManager.instance.startDiscovery();
   }
 
   @override
@@ -94,7 +95,7 @@ class _MyAppState extends State<MyApp> {
                               return ListTile(
                                 title: Text(device.friendlyName),
                                 subtitle: Text(device.modelName ?? ''),
-                                onTap: () => _loadQueue(device),
+                                onTap: () => _loadMedia(device),
                               );
                             })
                           ],

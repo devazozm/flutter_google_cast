@@ -28,6 +28,7 @@ class _GoogleCastVolumeState extends State<GoogleCastVolume> {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
+      color: const Color(0xFF2C323E),
       padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
