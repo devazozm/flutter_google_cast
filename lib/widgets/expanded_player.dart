@@ -30,6 +30,7 @@ class _ExpandedGoogleCastPlayerControllerState
           final mediaStatus = GoogleCastRemoteMediaClient.instance.mediaStatus;
           final deviceName = GoogleCastSessionManager
               .instance.currentSession?.device?.friendlyName;
+          setState(() {});
           if (mediaStatus == null) return SizedBox.shrink();
           return Scaffold(
             extendBodyBehindAppBar: true,
@@ -149,10 +150,8 @@ class _ExpandedGoogleCastPlayerControllerState
                             color: Colors.white,
                             onPressed: () => _togglePlayAndPause
                                 .call(mediaStatus.playerState),
-                            icon: const SizedBox(
-                                    child: CircularProgressIndicator(),
-                                  ),
-                              
+                            icon: _getIconFromPlayerState(
+                                mediaStatus.playerState),
                             iconSize: 60,
                           ),
                           IconButton(
