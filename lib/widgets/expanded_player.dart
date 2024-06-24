@@ -149,17 +149,10 @@ class _ExpandedGoogleCastPlayerControllerState
                             color: Colors.white,
                             onPressed: () => _togglePlayAndPause
                                 .call(mediaStatus.playerState),
-                            icon: ((mediaStatus.playerState !=
-                                        CastMediaPlayerState.loading) &&
-                                    (mediaStatus.playerState !=
-                                        CastMediaPlayerState.playing) &&
-                                    (mediaStatus.playerState !=
-                                        CastMediaPlayerState.loading))
-                                ? const SizedBox(
+                            icon: const SizedBox(
                                     child: CircularProgressIndicator(),
-                                  )
-                                : _getIconFromPlayerState(
-                                    mediaStatus.playerState),
+                                  ),
+                              
                             iconSize: 60,
                           ),
                           IconButton(
