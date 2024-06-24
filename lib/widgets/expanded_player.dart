@@ -110,7 +110,8 @@ class _ExpandedGoogleCastPlayerControllerState
                                               .formatted
                                           : GoogleCastRemoteMediaClient.instance
                                               .playerPosition.formatted,
-                                      style: theme.textTheme.bodySmall?.copyWith(
+                                      style:
+                                          theme.textTheme.bodySmall?.copyWith(
                                         color: Colors.white,
                                       ),
                                     ),
@@ -224,6 +225,14 @@ class _ExpandedGoogleCastPlayerControllerState
         iconData = Icons.play_circle_filled_rounded;
         break;
       case CastMediaPlayerState.loading:
+        return const SizedBox(
+          child: CircularProgressIndicator(),
+        );
+      case CastMediaPlayerState.buffering:
+        return const SizedBox(
+          child: CircularProgressIndicator(),
+        );
+      case CastMediaPlayerState.idle:
         return const SizedBox(
           child: CircularProgressIndicator(),
         );
