@@ -216,7 +216,8 @@ class _ExpandedGoogleCastPlayerControllerState
   ThemeData get theme => Theme.of(context);
 
   Widget _getIconFromPlayerState(CastMediaPlayerState playerState) {
-    IconData iconData;
+    debugPrint("CastMediaPlayerState for test>>> $playerState");
+    IconData iconData = Icons.play_circle_filled_rounded;
     switch (playerState) {
       case CastMediaPlayerState.playing:
         iconData = Icons.pause_circle_filled_rounded;
