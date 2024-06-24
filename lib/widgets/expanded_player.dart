@@ -150,7 +150,7 @@ class _ExpandedGoogleCastPlayerControllerState
                                 .call(mediaStatus.playerState),
                             icon: _getIconFromPlayerState(
                                 mediaStatus.playerState),
-                            iconSize: 68,
+                            iconSize: 60,
                           ),
                           IconButton(
                             color: Colors.white,
@@ -228,7 +228,7 @@ class _ExpandedGoogleCastPlayerControllerState
           child: CircularProgressIndicator(),
         );
       default:
-        return const SizedBox.shrink();
+        iconData = Icons.error_sharp;
     }
     return Icon(
       iconData,
