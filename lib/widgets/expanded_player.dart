@@ -22,7 +22,6 @@ class _ExpandedGoogleCastPlayerControllerState
     extends State<ExpandedGoogleCastPlayerController> {
   bool _isSliding = false;
   double _sliderPercentage = 0;
-  CastMediaPlayerState playerState = CastMediaPlayerState.loading;
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<GoggleCastMediaStatus?>(
@@ -31,9 +30,6 @@ class _ExpandedGoogleCastPlayerControllerState
           final mediaStatus = GoogleCastRemoteMediaClient.instance.mediaStatus;
           final deviceName = GoogleCastSessionManager
               .instance.currentSession?.device?.friendlyName;
-          playerState =
-              GoogleCastRemoteMediaClient.instance.mediaStatus?.playerState ??
-                  CastMediaPlayerState.loading;
           if (mediaStatus == null) return SizedBox.shrink();
           return Scaffold(
             extendBodyBehindAppBar: true,
@@ -151,9 +147,10 @@ class _ExpandedGoogleCastPlayerControllerState
                           ),
                           IconButton(
                             color: Colors.white,
-                            onPressed: () =>
-                                _togglePlayAndPause.call(playerState),
-                            icon: _getIconFromPlayerState(playerState),
+                            onPressed: () => _togglePlayAndPause
+                                .call(mediaStatus.playerState),
+                            icon: _getIconFromPlayerState(
+                                mediaStatus.playerState),
                             iconSize: 60,
                           ),
                           IconButton(
@@ -183,7 +180,6 @@ class _ExpandedGoogleCastPlayerControllerState
       child: StreamBuilder<Duration>(
           stream: GoogleCastRemoteMediaClient.instance.playerPositionStream,
           builder: (context, snapshot) {
-            playerState = CastMediaPlayerState.loading;
             return Slider(
               value: _isSliding
                   ? _sliderPercentage
@@ -220,32 +216,22 @@ class _ExpandedGoogleCastPlayerControllerState
   ThemeData get theme => Theme.of(context);
 
   Widget _getIconFromPlayerState(CastMediaPlayerState playerState) {
-    IconData iconData = Icons.play_circle_filled_rounded;
     switch (playerState) {
       case CastMediaPlayerState.playing:
-        iconData = Icons.pause_circle_filled_rounded;
-        break;
+        return const Icon(Icons.pause_circle_filled_rounded);
       case CastMediaPlayerState.paused:
-        iconData = Icons.play_circle_filled_rounded;
-        break;
+        return const Icon(Icons.play_circle_filled_rounded);
       case CastMediaPlayerState.loading:
-        return const SizedBox(
-          child: CircularProgressIndicator(),
-        );
+        return const SizedBox(child: CircularProgressIndicator());
       case CastMediaPlayerState.buffering:
-        return const SizedBox(
-          child: CircularProgressIndicator(),
-        );
+        return const SizedBox(child: CircularProgressIndicator());
       case CastMediaPlayerState.idle:
-        return const SizedBox(
-          child: CircularProgressIndicator(),
-        );
+        return const SizedBox(child: CircularProgressIndicator());
+      case CastMediaPlayerState.unknown:
+        return const SizedBox(child: CircularProgressIndicator());
       default:
-        iconData = Icons.error_sharp;
+        return const Icon(Icons.error_sharp);
     }
-    return Icon(
-      iconData,
-    );
   }
 
   double _getProgressPercentage(
@@ -270,7 +256,6 @@ class _ExpandedGoogleCastPlayerControllerState
   void _onSliderChanged(double value) {
     setState(() {
       _sliderPercentage = value;
-      playerState = CastMediaPlayerState.loading;
     });
   }
 
