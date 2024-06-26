@@ -216,22 +216,26 @@ class _ExpandedGoogleCastPlayerControllerState
   ThemeData get theme => Theme.of(context);
 
   Widget _getIconFromPlayerState(CastMediaPlayerState playerState) {
+    IconData iconData;
     switch (playerState) {
       case CastMediaPlayerState.playing:
-        return const Icon(Icons.pause_circle_filled_rounded);
+        iconData = Icons.pause_circle_filled_rounded;
+        break;
       case CastMediaPlayerState.paused:
-        return const Icon(Icons.play_circle_filled_rounded);
+        iconData = Icons.play_circle_filled_rounded;
+        break;
       case CastMediaPlayerState.loading:
         return const SizedBox(child: CircularProgressIndicator());
       case CastMediaPlayerState.buffering:
         return const SizedBox(child: CircularProgressIndicator());
       case CastMediaPlayerState.idle:
         return const SizedBox(child: CircularProgressIndicator());
-      case CastMediaPlayerState.unknown:
-        return const SizedBox(child: CircularProgressIndicator());
       default:
-        return const Icon(Icons.error_sharp);
+        iconData = Icons.error_sharp;
     }
+    return Icon(
+      iconData,
+    );
   }
 
   double _getProgressPercentage(
